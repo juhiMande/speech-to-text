@@ -1,0 +1,28 @@
+{
+  "name": "speech-to-text",
+  "version": "1.0.0",
+  "description": "Real-time multilingual (Hindi + English) speech to text with transcription history",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@google/genai": "^2.31.0",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "google-tts-api": "^2.0.2",
+    "pg": "^8.23.1",
+    "ws": "^8.22.0"
+  },
+  "devDependencies": {
+    "pg-mem": "^3.0.14",
+    "supertest": "^7.3.1"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  }
+}

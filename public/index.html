@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Speech to Text</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Speech to Text</h1>
+    <span id="engine" class="engine">checking server…</span>
+  </header>
+
+  <main class="layout">
+    <section class="recorder" aria-labelledby="rec-heading">
+      <h2 id="rec-heading">Record</h2>
+      <p class="hint">Speak in Hindi, English or a mix of both. Text shows up as you talk.</p>
+
+      <div class="mic-wrap">
+        <button id="micBtn" class="mic" type="button" aria-pressed="false">
+          <span class="mic-ring" id="micRing" aria-hidden="true"></span>
+          <svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true">
+            <path fill="currentColor" d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12h-2Z"/>
+          </svg>
+          <span class="sr-only" id="micLabel">Start recording</span>
+        </button>
+        <div class="mic-meta">
+          <span id="timer" class="timer">0:00</span>
+          <span id="status" class="status" role="status">Ready</span>
+        </div>
+      </div>
+
+      <label for="liveText" class="field-label">Transcript</label>
+      <textarea id="liveText" class="live" rows="7" placeholder="Your words will appear here…" readonly></textarea>
+
+      <div id="saveBar" class="save-bar" hidden>
+        <input id="titleInput" type="text" maxlength="200" placeholder="Title (optional)" aria-label="Title">
+        <div class="save-actions">
+          <button id="discardBtn" type="button" class="btn ghost">Discard</button>
+          <button id="saveBtn" type="button" class="btn primary">Save transcription</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="history" aria-labelledby="hist-heading">
+      <div class="history-head">
+        <h2 id="hist-heading">History</h2>
+        <span id="count" class="count"></span>
+      </div>
+      <input id="search" type="search" placeholder="Search title or text" aria-label="Search transcriptions">
+      <ul id="list" class="list"></ul>
+      <p id="empty" class="empty" hidden>No transcriptions yet. Record something and save it to see it here.</p>
+      <nav class="pager" aria-label="Pagination">
+        <button id="prevBtn" type="button" class="btn ghost small">Previous</button>
+        <span id="pageInfo"></span>
+        <button id="nextBtn" type="button" class="btn ghost small">Next</button>
+      </nav>
+    </section>
+  </main>
+
+  <dialog id="editDialog" class="dialog">
+    <form method="dialog" id="editForm">
+      <h3>Edit transcription</h3>
+      <label for="editTitle" class="field-label">Title</label>
+      <input id="editTitle" type="text" maxlength="200" required>
+      <label for="editText" class="field-label">Text</label>
+      <textarea id="editText" rows="8" required></textarea>
+      <div class="dialog-actions">
+        <button type="button" id="cancelEdit" class="btn ghost">Cancel</button>
+        <button type="submit" id="confirmEdit" class="btn primary">Save changes</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="alert" hidden></div>
+
+  <template id="itemTemplate">
+    <li class="item">
+      <div class="item-top">
+        <h3 class="item-title"></h3>
+        <span class="item-lang"></span>
+      </div>
+      <p class="item-text"></p>
+      <div class="item-bottom">
+        <time class="item-date"></time>
+        <div class="item-actions">
+          <button type="button" class="link" data-action="play">Listen</button>
+          <button type="button" class="link" data-action="copy">Copy</button>
+          <button type="button" class="link" data-action="edit">Edit</button>
+          <button type="button" class="link danger" data-action="delete">Delete</button>
+        </div>
+      </div>
+    </li>
+  </template>
+
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>
